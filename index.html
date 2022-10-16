@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>CRUD APP</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=Koulen&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1 class="py-3 text-center">CRUD</h1>
+    <p class="mb-5 text-center" > CRUD Operations </p>
+    <div class="card-body">
+      <div class="container bg-white w-75 m-auto p-5">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="firstName">Product Name <span class="text-danger" >*</span></label>
+            <input type="text" class="form-control mb-3" id="productName" />
+            <div id="nameDenger" class="name-msg p-2 d-none alert-danger">Product Name must start with capital letter and contains minimum 3 letters, Can't contain special characters</div>
+            <div class="name-msg alert-success p-2 d-none" id="namesuccess">Success</div>
+            <label for="productPrice">Product Price <span class="text-danger" >*</span></label>
+            <input type="number" class="form-control mb-3" id="productPrice" />
+            <div class="name-msg alert-danger p-2 d-none" id="priceDenger">Product Price must be in range 100 : 10,000 (Numbers Only)</div>
+                    <div class="name-msg alert-success p-2 d-none" id="pricesuccess">Success</div>
+            <label for="productCategory">Product Ctegory <span class="text-danger" >*</span></label>
+            <input type="text" class="form-control mb-3" id="productCategory" />
+            <div class="name-msg alert-danger p-2 d-none" id="categoryDenger">Product Category must contain start with capital letter and contains minimum 3 letters</div>
+            <div class="name-msg alert-success p-2 d-none" id="categorysuccess">Success</div>
+
+            <label for="productDesc">Product Descripton <span class="text-danger" >*</span></label>
+            <textarea id="productDesc" class="form-control" cols="30" rows="4"></textarea>
+            <div class="name-msg alert-danger p-2 d-none" id="descDenger">Product Description must contain minimum 3 letters, Can't contain special characters</div>
+            <div class="name-msg alert-success p-2 d-none" id="descsuccess">Success</div>
+            <div class="col-12 text-center">
+              <button
+              id="addBtn"
+                disabled
+                class="addBtn rounded-pill px-4 py-2 mt-4"
+                
+              >
+                Add Product
+              </button>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container w-75 mt-5 p-4">
+        <div class="row">
+            <div class="col-12">
+                <input onkeyup="search(this.value)" type="search" class="form-control" id="searchTxt" placeholder="&#xf002; &nbsp; Search Product ..." style="font-family:Arial, FontAwesome;">
+                <table class="table table-striped mt-5 w-100" >
+                    <thead class="text-white text-center">
+                       
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th> </th>
+                        <th> </th>
+                    </thead>
+                    <tbody id="Body" class="text-center bg-white">
+                        
+                        
+                   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
