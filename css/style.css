@@ -1,18 +1,18 @@
 :root{
-    --main-color:#8e9aaf;
+    --main-color:rgb(37, 150, 190);
 }
 
 body{
     background-color: #fff;
 }
 h1{
-    background: linear-gradient(#8e9aaf,#cbc0d3) ;
+    background: linear-gradient(rgb(37, 150, 190),#76b5c5) ;
     color:#fff;
     font-family: 'Lobster', cursive;
     font-size: 58px;
 }
 p{
-    background-color: #f0efeb;
+    background-color: #eeeee4;
    color: var(--main-color) ;
    font-size: 17px;
 }

@@ -1,146 +1,159 @@
-var ProductNameInput = document.getElementById("productName");
-var productPriceInput = document.getElementById("productPrice");
-var productCategoryInput = document.getElementById("productCategory");
-var productDescriptionInput = document.getElementById("productDesc");
-var addBtn = document.getElementById("addBtn");
-var products = [];
-var currentIndex = 0;
+var productNameInput=document.getElementById('productName');
+var productPriceInput=document.getElementById('productPrice');
+var productCategoryInput=document.getElementById('productCategory');
+var productDascInput=document.getElementById('productDesc');
+var addBtn=document.getElementById('addBtn');
+var products=[];
+var inputs=document.getElementsByClassName('form-control');
+var currentIndex=0;
 
-if (JSON.parse(localStorage.getItem("productsList")) != null) {
-  products = JSON.parse(localStorage.getItem("productsList"));
-  displayData();
+
+if(JSON.parse(localStorage.getItem('ProductsList'))!=null){
+products=JSON.parse(localStorage.getItem('ProductsList'));
+display()
 }
+addBtn.onclick=function(){
+ if (addBtn.innerHTML=='Add Product') {
+ addProduct();
+ }
+ else{
+ updateProduct();
+ }
+ display();
+ resetForm();
 
-var inputs = document.getElementsByClassName("form-control");
-addBtn.onclick = function () {
-  if (addBtn.innerHTML == "Add Product") {
-    addProduct();
-  } else {
-    updateProduct();
-  }
-
-  displayData();
-  resetData();
-};
-function addProduct() {
+}
+function addProduct(){
   var product = {
-    name: ProductNameInput.value,
-    price: productPriceInput.value,
-    category: productCategoryInput.value,
-    desc: productDescriptionInput.value,
-  };
-  products.push(product);
-  localStorage.setItem("productsList", JSON.stringify(products));
-}
-
-function displayData() {
-  var box = "";
-  for (var i = 0; i < products.length; i++) {
-    box += `
-   <tr>
-   <td>${products[i].name}</td>
-   <td>${products[i].price}</td>
-   <td>${products[i].category}</td>
-   <td>${products[i].desc}</td>
-   <td><button onclick="deleteData(${i})" class="btn btn-outline-danger mx-2" ><i class="fa-solid fa-trash"></i> Delete </button>
-   <button  onclick="getProductInfo(${i})" class="btn btn-outline-success" ><i class="fa-solid fa-pen-to-square"></i> Update </button></td>
-   </tr>
+    name:productNameInput.value,
+    price:productPriceInput.value,
+    desc:productDascInput.value,
+    category:productCategoryInput.value
+   }
+   products.push(product);
+   localStorage.setItem('ProductsList',JSON.stringify(products))
    
-   
-   `;
+
+}
+function display(){
+  var box='';
+  for(var i=0;i<products.length;i++){
+    box+=
+    `
+    <tr>
+    <td>${products[i].name}</td>
+    <td>${products[i].price}</td>
+    <td>${products[i].category}</td>
+    <td>${products[i].desc}</td>
+    <td><button onclick='getProductInfo(${i})' class='btn btn-outline-success mx-2'><i class="fa-solid fa-pen-to-square mx-2"></i></button>
+    <button onclick='deleteProduct(${i})' class='btn btn-outline-danger'><i class="fa-solid fa-trash mx-2"></i></button></td>
+    </tr>
+    `
   }
-  document.getElementById("Body").innerHTML = box;
+  document.getElementById('Body').innerHTML=box
 }
 
-function resetData() {
-  for (var i = 0; i < inputs.length; i++) {
-    inputs[i].value = "";
-  }
-}
-
-function deleteData(index) {
-  products.splice(index, 1);
-  localStorage.setItem("productsList", JSON.stringify(products));
-  displayData();
-}
-
-function search(searchTxt) {
-  var box = "";
-  for (var i = 0; i < products.length; i++) {
-    if (products[i].name.toLowerCase().includes(searchTxt.toLowerCase())) {
-      box += `
-      <tr>
-      <td>${products[i].name}</td>
-      <td>${products[i].price}</td>
-      <td>${products[i].category}</td>
-      <td>${products[i].desc}</td>
-      <td><button onclick="deleteData(${i})" class="btn btn-outline-danger mx-2" ><i class="fa-solid fa-trash"></i> </button>
-      <button class="btn btn-outline-success" ><i class="fa-solid fa-pen-to-square"></i> </button></td>
-      </tr>
-      
-      
-      `;
-    }
-    document.getElementById("Body").innerHTML = box;
+function resetForm(){
+  for(var i=0;i<inputs.length;i++){
+    inputs[i].value=''
   }
 }
 
-function getProductInfo(index) {
-  currentIndex = index;
-  var currentProduct = products[index];
-  ProductNameInput.value = currentProduct.name;
-  productPriceInput.value = currentProduct.price;
-  productCategoryInput.value = currentProduct.category;
-  productDescriptionInput.value = currentProduct.desc;
-  addBtn.innerHTML = "Update Product";
+function deleteProduct(index){
+ products.splice(index,1)
+  display()
+  localStorage.setItem('ProductsList',JSON.stringify(products))
 }
 
-function updateProduct() {
+
+function search(searchTxt){
+  var box='';
+  for(var i=0;i<products.length;i++){
+    if(products[i].name.toLowerCase().includes(searchTxt.toLowerCase()))
+    box+=
+    `
+    <tr>
+    <td>${products[i].name}</td>
+    <td>${products[i].price}</td>
+    <td>${products[i].category}</td>
+    <td>${products[i].desc}</td>
+    <td><button class='btn btn-outline-success mx-2'>update</button>
+    <button onclick='deleteProduct(${i})' class='btn btn-outline-danger'>delete</button></td>
+    </tr>
+    `
+  }
+  document.getElementById('Body').innerHTML=box
+}
+function getProductInfo(index){
+  currentIndex=index;
+ var currentProduct=products[index];
+ productNameInput.value=currentProduct.name;
+ productPriceInput.value=currentProduct.price;
+ productDascInput.value=currentProduct.desc;
+ productCategoryInput.value=currentProduct.category;
+ addBtn.innerHTML='Update Product'
+
+}
+
+
+function updateProduct(){
   var product = {
-    name: ProductNameInput.value,
-    price: productPriceInput.value,
-    category: productCategoryInput.value,
-    desc: productDescriptionInput.value,
-  };
-  products[currentIndex] = product;
-  localStorage.setItem("productsList", JSON.stringify(products));
-}
+    name:productNameInput.value,
+    price:productPriceInput.value,
+    desc:productDascInput.value,
+    category:productCategoryInput.value
+   }
+   products[currentIndex]=product;
+   localStorage.setItem('ProductsList',JSON.stringify(products))
+   addBtn.innerHTML='Add Product';
 
-// ProductNameInput.onkeyup=function(){
-//   var nameRegex=/^[A-Z][a-z]{2,8}$/;
-//   if(nameRegex.test(ProductNameInput.value)){
-//     addBtn.removeAttribute('disabled')
-//     ProductNameInput.classList.add('is-valid')
-//     ProductNameInput.classList.remove('is-invalid')
-//   }
-//   addBtn.disabled='true';
-//   ProductNameInput.classList.add('is-invalid')
-//   ProductNameInput.classList.remove('is-valid')
-// }
-ProductNameInput.onkeyup=function()
+}
+productName.onkeyup=function()
 {
-    var regexName=/^[A-Z][a-z]{2,10}$/
-    if(regexName.test(ProductNameInput.value))
+    var regexName=/^[A-Z][a-z]{3,10}$/
+    if(regexName.test(productName.value))
     {
         addBtn.removeAttribute('disabled');
-        ProductNameInput.classList.add('is-valid')
-        ProductNameInput.classList.remove('is-invalid')
+        productName.classList.add('is-valid')
+        productName.classList.remove('is-invalid')
         nameDenger.classList.add('d-none')
         namesuccess.classList.remove('d-none')
     }
     else{
        addBtn.disabled='true';
-       ProductNameInput.classList.remove('is-valid')
-       ProductNameInput.classList.add('is-invalid')
+       productName.classList.remove('is-valid')
+       productName.classList.add('is-invalid')
        nameDenger.classList.remove('d-none')
        namesuccess.classList.add('d-none')
     }
   
 }
-productPriceInput.onkeyup=function()
+
+
+productCategory.onkeyup=function()
+{
+    var regexName=/^[A-Z][a-z]{5,10}$/
+    if(regexName.test(productCategory.value))
+    {
+        addBtn.removeAttribute('disabled');
+        productCategory.classList.add('is-valid')
+        productCategory.classList.remove('is-invalid')
+        categoryDenger.classList.add('d-none')
+        categorysuccess.classList.remove('d-none')
+    }
+    else{
+       addBtn.disabled='true';
+       productCategory.classList.remove('is-valid')
+       productCategory.classList.add('is-invalid')
+       categoryDenger.classList.remove('d-none')
+       categorysuccess.classList.add('d-none')
+    }
+}
+
+productPrice.onkeyup=function()
 {
     var regexName=/^([0-9]{3,4}|100|10000)$/
-    if(regexName.test(productPriceInput.value))
+    if(regexName.test(productPrice.value))
     {
         addBtn.removeAttribute('disabled');
         productPrice.classList.add('is-valid')
@@ -158,30 +171,10 @@ productPriceInput.onkeyup=function()
 
 }
 
-
-productCategoryInput.onkeyup=function()
-{
-    var regexName=/^[A-Z][a-z]{3,10}$/
-    if(regexName.test(productCategoryInput.value))
-    {
-        addBtn.removeAttribute('disabled');
-        productCategory.classList.add('is-valid')
-        productCategory.classList.remove('is-invalid')
-        categoryDenger.classList.add('d-none')
-        categorysuccess.classList.remove('d-none')
-    }
-    else{
-       addBtn.disabled='true';
-       productCategory.classList.remove('is-valid')
-       productCategory.classList.add('is-invalid')
-       categoryDenger.classList.remove('d-none')
-       categorysuccess.classList.add('d-none')
-    }
-}
-productDescriptionInput.onkeyup=function()
+productDesc.onkeyup=function()
 {
     var regexName=/^[A-Z][a-z]{2,}$/
-    if(regexName.test(productDescriptionInput.value))
+    if(regexName.test(productDesc.value))
     {
         addBtn.removeAttribute('disabled');
         productDesc.classList.add('is-valid')
